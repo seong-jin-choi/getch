@@ -8,9 +8,17 @@ const Tab = createBottomTabNavigator();
 const Tabs = () => {
   return (
     <Tab.Navigator initialRouteName="Todo" screenOptions={{headerShown: false}}>
-      <Tab.Screen name="카테고리" component={Category} />
-      <Tab.Screen name="일정" component={Todo} />
-      <Tab.Screen name="내 정보" component={MyInfo} />
+      <Tab.Screen
+        name="Category"
+        component={Category}
+        options={{title: '카테고리'}}
+      />
+      <Tab.Screen name="Todo" component={Todo} options={{title: '일정'}} />
+      <Tab.Screen
+        name="MyInfo"
+        component={MyInfo}
+        options={{title: '내 정보'}}
+      />
     </Tab.Navigator>
   );
 };

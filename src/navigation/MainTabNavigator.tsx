@@ -1,11 +1,11 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Todo from '../screen/Todo';
 import Category from '../screen/Category';
-import MyInfo from '../screen/MyInfo';
+import MyInfoNavigator from './MyInfoNavigator';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const MainTabNavigator = () => {
   return (
     <Tab.Navigator initialRouteName="Todo" screenOptions={{headerShown: false}}>
       <Tab.Screen
@@ -15,12 +15,12 @@ const Tabs = () => {
       />
       <Tab.Screen name="Todo" component={Todo} options={{title: '일정'}} />
       <Tab.Screen
-        name="MyInfo"
-        component={MyInfo}
+        name="MyInfoNavigator"
+        component={MyInfoNavigator}
         options={{title: '내 정보'}}
       />
     </Tab.Navigator>
   );
 };
 
-export default Tabs;
+export default MainTabNavigator;

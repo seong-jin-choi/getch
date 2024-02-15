@@ -1,8 +1,10 @@
-import React from 'react';
-import {Button, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import { ReactNode} from 'react';
+import {Button, SafeAreaView, StatusBar, StyleSheet, View,Image} from 'react-native';
 import * as Notifications from 'expo-notifications';
 import {NavigationContainer} from '@react-navigation/native';
 import TabBar from './src/navigation/Root';
+import {Text} from 'react-native';
+import logo from "./assets/logo.png"
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -46,19 +48,59 @@ function App(): React.JSX.Element {
       fontSize: 25,
       fontWeight: '500',
     },
+    mainKoText: {
+      fontSize: 42,
+      color: '#000',
+    },
   });
   return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.container}>
-        <StatusBar
-          barStyle={'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-        <Button title="push" onPress={handleScheduleAlarm} />
-        <TabBar />
-      </SafeAreaView>
-    </NavigationContainer>
+    <>
+      <MainPageWrap>
+        {/* 1번째 페이지 */}
+        {/* <Text style={styles.mainKoText}>새로운 일정</Text> */}
+        {/* <Text style={styles.mainKoText}>새로운 오늘</Text> */}
+        {/* 2번째 페이지 */}
+        {/* <Image source={logo} /> */}
+        {/* 3번째 페이지 */}
+      </MainPageWrap>
+      {/* <NavigationContainer>
+        <SafeAreaView style={styles.container}>
+          <StatusBar
+            barStyle={'dark-content'}
+            backgroundColor={backgroundStyle.backgroundColor}
+          />
+          <Button title="push" onPress={handleScheduleAlarm} />
+          <TabBar />
+        </SafeAreaView>
+      </NavigationContainer> */}
+    </>
   );
 }
 
 export default App;
+
+const MainPageWrap = ({children}: {children: ReactNode}) => {
+  const styles = StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    copyRight: {
+      position: 'absolute',
+      bottom: 32,
+      opacity: 0.4,
+      fontSize: 11,
+      color: '#000',
+    },
+  });
+
+  return (
+    <SafeAreaView style={styles.mainContainer}>
+      {children}
+      <Text style={styles.copyRight}>© 2024 Getch Corp.</Text>
+    </SafeAreaView>
+  );
+};
+
+const MainPage2 = () => {};

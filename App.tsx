@@ -1,10 +1,21 @@
-import { ReactNode} from 'react';
-import {Button, SafeAreaView, StatusBar, StyleSheet, View,Image} from 'react-native';
+import {ReactNode} from 'react';
+import {
+  Button,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
 import * as Notifications from 'expo-notifications';
 import {NavigationContainer} from '@react-navigation/native';
 import TabBar from './src/navigation/Root';
 import {Text} from 'react-native';
-import logo from "./assets/logo.png"
+import logo from './assets/logo.png';
+import google from './assets/google.png';
+import apple from './assets/apple.png';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -55,14 +66,13 @@ function App(): React.JSX.Element {
   });
   return (
     <>
-      <MainPageWrap>
-        {/* 1번째 페이지 */}
-        {/* <Text style={styles.mainKoText}>새로운 일정</Text> */}
-        {/* <Text style={styles.mainKoText}>새로운 오늘</Text> */}
-        {/* 2번째 페이지 */}
-        {/* <Image source={logo} /> */}
-        {/* 3번째 페이지 */}
-      </MainPageWrap>
+      {/* 1번째 페이지 */}
+      {/* <MainPage1 /> */}
+      {/* 2번째 페이지 */}
+      {/* <MainPage2 /> */}
+      {/* 3번째 페이지 */}
+      {/* <MainPage3 /> */}
+
       {/* <NavigationContainer>
         <SafeAreaView style={styles.container}>
           <StatusBar
@@ -103,4 +113,142 @@ const MainPageWrap = ({children}: {children: ReactNode}) => {
   );
 };
 
-const MainPage2 = () => {};
+const MainPage1 = () => {
+  const styles = StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    mainKoText: {
+      fontSize: 42,
+      color: '#000',
+    },
+    copyRight: {
+      position: 'absolute',
+      bottom: 32,
+      opacity: 0.4,
+      fontSize: 11,
+      color: '#000',
+    },
+  });
+  return (
+    <SafeAreaView style={styles.mainContainer}>
+      <Text style={styles.mainKoText}>새로운 일정</Text>
+      <Text style={styles.mainKoText}>새로운 오늘</Text>
+      <Text style={styles.copyRight}>© 2024 Getch Corp.</Text>
+    </SafeAreaView>
+  );
+};
+const MainPage2 = () => {
+  const styles = StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    copyRight: {
+      position: 'absolute',
+      bottom: 32,
+      opacity: 0.4,
+      fontSize: 11,
+      color: '#000',
+    },
+  });
+  return (
+    <SafeAreaView style={styles.mainContainer}>
+      <Image source={logo} />
+      <Text style={styles.copyRight}>© 2024 Getch Corp.</Text>
+    </SafeAreaView>
+  );
+};
+
+const MainPage3 = () => {
+  const styles = StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+      // justifyContent: 'center',
+      // alignItems: 'center',
+    },
+    logo: {
+      width: 124,
+      height: 40,
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      lineHeight: 34.08,
+      color: '#000',
+      textAlign: 'center',
+    },
+    subTitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      lineHeight: 34,
+      color: '#000',
+      textAlign: 'center',
+    },
+    socialLoginBtn: {
+      gap: 10,
+      height: 46,
+      flexDirection: 'row',
+      borderRadius: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: '#000',
+      borderStyle: 'solid',
+    },
+    socialLoginText: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      lineHeight: 22,
+      color: '#000',
+    },
+    copyRight: {
+      position: 'absolute',
+      bottom: 32,
+      opacity: 0.4,
+      fontSize: 11,
+      color: '#000',
+      alignSelf: 'center',
+    },
+  });
+
+  return (
+    <SafeAreaView style={styles.mainContainer}>
+      <View
+        style={{
+          marginTop: 140,
+          alignItems: 'center',
+        }}>
+        <Image source={logo} style={styles.logo} />
+      </View>
+      <View style={{marginTop: 40}}>
+        <Text style={styles.title}>
+          내 라이프 스타일에 맞는{'\n'}
+          일정을 찾아 듣는 앱
+        </Text>
+        <View style={{marginTop: 70}}>
+          <Text style={styles.subTitle}>지금 가입하세요.</Text>
+        </View>
+      </View>
+      <View
+        style={{
+          marginHorizontal: 20,
+          marginTop: 20,
+          gap: 10,
+        }}>
+        <TouchableOpacity style={styles.socialLoginBtn} onPress={() => {}}>
+          <Image source={google} />
+          <Text style={styles.socialLoginText}>Google</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.socialLoginBtn} onPress={() => {}}>
+          <Image source={apple} />
+          <Text style={styles.socialLoginText}>Apple</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.copyRight}>© 2024 Getch Corp.</Text>
+    </SafeAreaView>
+  );
+};

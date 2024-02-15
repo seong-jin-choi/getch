@@ -1,6 +1,8 @@
 import React from 'react';
 import {Button, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import * as Notifications from 'expo-notifications';
+import {NavigationContainer} from '@react-navigation/native';
+import TabBar from './src/navigation/Root';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -46,13 +48,16 @@ function App(): React.JSX.Element {
     },
   });
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar
-        barStyle={'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <Button title="push" onPress={handleScheduleAlarm} />
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={styles.container}>
+        <StatusBar
+          barStyle={'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <Button title="push" onPress={handleScheduleAlarm} />
+        <TabBar />
+      </SafeAreaView>
+    </NavigationContainer>
   );
 }
 

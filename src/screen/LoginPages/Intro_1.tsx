@@ -1,32 +1,40 @@
-import {StyleSheet, SafeAreaView, Text} from 'react-native';
+import styled from 'styled-components/native';
 
 // 피그마 아트보드 1
 
+const IntroSection = styled.SafeAreaView`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const IntroText = styled.Text`
+  font-size: 42px;
+  line-height: 55.86px;
+  color: #000;
+`;
+
+export const CopyRight = styled.Text`
+  position: absolute;
+  bottom: 32px;
+  opacity: 0.4;
+  font-size: 11px;
+  color: #000;
+  align-self: center;
+`;
+
 const Intro1 = () => {
-  const styles = StyleSheet.create({
-    mainContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    mainKoText: {
-      fontSize: 42,
-      color: '#000',
-    },
-    copyRight: {
-      position: 'absolute',
-      bottom: 32,
-      opacity: 0.4,
-      fontSize: 11,
-      color: '#000',
-    },
-  });
+  const currentYear = new Date().getFullYear();
+
   return (
-    <SafeAreaView style={styles.mainContainer}>
-      <Text style={styles.mainKoText}>새로운 일정</Text>
-      <Text style={styles.mainKoText}>새로운 오늘</Text>
-      <Text style={styles.copyRight}>© 2024 Getch Corp.</Text>
-    </SafeAreaView>
+    <IntroSection>
+      <IntroText>새로운 일정</IntroText>
+      <IntroText>새로운 오늘</IntroText>
+      <CopyRight>© {currentYear} Getch Corp.</CopyRight>
+    </IntroSection>
   );
 };
 export default Intro1;

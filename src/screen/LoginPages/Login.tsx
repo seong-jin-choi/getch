@@ -8,6 +8,8 @@ import appleAuth, {
 } from '@invertase/react-native-apple-authentication';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
+import fonts from '../../fonts';
+
 // 피그마 아트보드 3
 
 const LoginSection = styled.SafeAreaView`
@@ -31,8 +33,8 @@ const TitleWrap = styled.View`
   margin-top: 40px;
 `;
 const Title = styled.Text`
+  font-family: ${fonts.Medium};
   font-size: 24px;
-  font-weight: 500;
   line-height: 34.08px;
   color: #000;
   text-align: center;
@@ -43,8 +45,8 @@ const SubTitleWrap = styled.View`
 `;
 
 const SubTitle = styled.Text`
+  font-family: 'Pretendard-Medium';
   font-size: 20px;
-  font-weight: 500;
   line-height: 34px;
   color: #000;
   text-align: center;

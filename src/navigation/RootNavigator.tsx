@@ -8,7 +8,7 @@ const Nav = createNativeStackNavigator();
 const RootNavigator = () => {
   return (
     <Nav.Navigator
-      initialRouteName="Tabs" //최초로 보이는 페이지
+      initialRouteName="Login" //최초로 보이는 페이지
       screenOptions={{headerShown: false}}>
       {/*로그인 페이지 및 애니메이션 (피그마 1~3)*/}
       <Nav.Screen name="Intro1" component={Intro1} />

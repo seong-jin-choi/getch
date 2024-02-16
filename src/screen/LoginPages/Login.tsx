@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {logo, google, apple} from '../../images';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {useEffect} from 'react';
+import appleAuth from '@invertase/react-native-apple-authentication';
 
 // 피그마 아트보드 3
 
@@ -59,6 +62,28 @@ const Login = () => {
       alignSelf: 'center',
     },
   });
+  const handleAppleLogin = async () => {
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+    });
+    console.log('appleAuthRequestResponse', appleAuthRequestResponse);
+    // get current authentication state for user
+    // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+    const credentialState = await appleAuth.getCredentialStateForUser(
+      appleAuthRequestResponse.user,
+    );
+
+    // use credentialState response to ensure the user is authenticated
+    if (credentialState === appleAuth.State.AUTHORIZED) {
+      // user is authenticated
+    }
+  };
+  const handleGoogleLogin = async () => {
+    await GoogleSignin.hasPlayServices();
+    const user = await GoogleSignin.signIn();
+    console.log(user);
+  };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -84,11 +109,15 @@ const Login = () => {
           marginTop: 20,
           gap: 10,
         }}>
-        <TouchableOpacity style={styles.socialLoginBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.socialLoginBtn}
+          onPress={() => handleGoogleLogin()}>
           <Image source={google} />
           <Text style={styles.socialLoginText}>Google</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.socialLoginBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.socialLoginBtn}
+          onPress={() => handleAppleLogin()}>
           <Image source={apple} />
           <Text style={styles.socialLoginText}>Apple</Text>
         </TouchableOpacity>

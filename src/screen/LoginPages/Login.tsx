@@ -3,7 +3,9 @@ import {Image} from 'react-native';
 
 import {logo, google, apple} from '../../images';
 import {CopyRight} from './Intro_1';
-import appleAuth from '@invertase/react-native-apple-authentication';
+import appleAuth, {
+  appleAuthAndroid,
+} from '@invertase/react-native-apple-authentication';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 // 피그마 아트보드 3
@@ -73,22 +75,61 @@ const SocialLoginText = styled.Text`
 `;
 
 const handleAppleLogin = async () => {
-  const appleAuthRequestResponse = await appleAuth.performRequest({
-    requestedOperation: appleAuth.Operation.LOGIN,
-    requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
-  });
-  console.log('appleAuthRequestResponse', appleAuthRequestResponse);
-  // get current authentication state for user
-  // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
-  const credentialState = await appleAuth.getCredentialStateForUser(
-    appleAuthRequestResponse.user,
-  );
-  console.log(credentialState);
+  if (appleAuthAndroid.isSupported) {
+    try {
+      appleAuthAndroid.configure({
+        clientId: 'com.getch.getchSID',
+        redirectUri:
+          'https://2b0a-218-145-201-124.ngrok-free.app/api/apple/callback',
+        scope: appleAuthAndroid.Scope.ALL,
+      });
 
-  // use credentialState response to ensure the user is authenticated
-  if (credentialState === appleAuth.State.AUTHORIZED) {
-    // user is authenticated
-    console.log('test');
+      const response = await appleAuthAndroid.signIn();
+      console.log(response);
+      if (response) {
+        const code = response.code; // Present if selected ResponseType.ALL / ResponseType.CODE
+        const id_token = response.id_token; // Present if selected ResponseType.ALL / ResponseType.ID_TOKEN
+        const user = response.user; // Present when user first logs in using appleId
+        const state = response.state; // A copy of the state value that was passed to the initial request.
+        console.log('Got auth code', code);
+        console.log('Got id_token', id_token);
+        console.log('Got user', user);
+        console.log('Got state', state);
+      }
+    } catch (error) {
+      if (error && error.message) {
+        switch (error.message) {
+          case appleAuthAndroid.Error.NOT_CONFIGURED:
+            console.log('appleAuthAndroid not configured yet.');
+            break;
+          case appleAuthAndroid.Error.SIGNIN_FAILED:
+            console.log('Apple signin failed.');
+            break;
+          case appleAuthAndroid.Error.SIGNIN_CANCELLED:
+            console.log('User cancelled Apple signin.');
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+  if (appleAuth.isSupported) {
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+    });
+    console.log('appleAuthRequestResponse', appleAuthRequestResponse);
+    const credentialState = await appleAuth.getCredentialStateForUser(
+      appleAuthRequestResponse.user,
+    );
+
+    // use credentialState response to ensure the user is authenticated
+    if (credentialState === appleAuth.State.AUTHORIZED) {
+      console.log('asd');
+      // user is authenticated
+    }
   }
 };
 const handleGoogleLogin = async () => {

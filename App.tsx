@@ -4,6 +4,8 @@ import RootNavigator from './src/navigation/RootNavigator';
 import './src/pushAlarm';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useEffect} from 'react';
+import {RecoilRoot} from 'recoil';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -15,10 +17,12 @@ function App(): React.JSX.Element {
     });
   }, []);
   return (
-    <NavigationContainer>
-      <StatusBar barStyle="dark-content" backgroundColor={'#F7F7F7'} />
-      <RootNavigator />
-    </NavigationContainer>
+    <RecoilRoot>
+      <NavigationContainer>
+        <StatusBar barStyle="dark-content" backgroundColor={'#F7F7F7'} />
+        <RootNavigator />
+      </NavigationContainer>
+    </RecoilRoot>
   );
 }
 

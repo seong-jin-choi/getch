@@ -9,6 +9,10 @@ import appleAuth, {
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 import fonts from '../../fonts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSetRecoilState} from 'recoil';
+import {LoginState} from '../../login';
+import axios from 'axios';
 
 // 피그마 아트보드 3
 
@@ -76,70 +80,88 @@ const SocialLoginText = styled.Text`
   color: #000;
 `;
 
-const handleAppleLogin = async () => {
-  if (appleAuthAndroid.isSupported) {
-    try {
-      appleAuthAndroid.configure({
-        clientId: 'com.getch.getchSID',
-        redirectUri:
-          'https://2b0a-218-145-201-124.ngrok-free.app/api/apple/callback',
-        scope: appleAuthAndroid.Scope.ALL,
-      });
+const Login = () => {
+  const handleAppleLogin = async () => {
+    if (appleAuthAndroid.isSupported) {
+      try {
+        appleAuthAndroid.configure({
+          clientId: 'com.getch.getchSID',
+          redirectUri:
+            'https://2b0a-218-145-201-124.ngrok-free.app/api/apple/callback',
+          scope: appleAuthAndroid.Scope.ALL,
+        });
 
-      const response = await appleAuthAndroid.signIn();
-      console.log(response);
-      if (response) {
-        const code = response.code; // Present if selected ResponseType.ALL / ResponseType.CODE
-        const id_token = response.id_token; // Present if selected ResponseType.ALL / ResponseType.ID_TOKEN
-        const user = response.user; // Present when user first logs in using appleId
-        const state = response.state; // A copy of the state value that was passed to the initial request.
-        console.log('Got auth code', code);
-        console.log('Got id_token', id_token);
-        console.log('Got user', user);
-        console.log('Got state', state);
-      }
-    } catch (error) {
-      if (error && error.message) {
-        switch (error.message) {
-          case appleAuthAndroid.Error.NOT_CONFIGURED:
-            console.log('appleAuthAndroid not configured yet.');
-            break;
-          case appleAuthAndroid.Error.SIGNIN_FAILED:
-            console.log('Apple signin failed.');
-            break;
-          case appleAuthAndroid.Error.SIGNIN_CANCELLED:
-            console.log('User cancelled Apple signin.');
-            break;
-          default:
-            break;
+        const response = await appleAuthAndroid.signIn();
+        if (response) {
+          //@TODO: 호출 URL 추후 변경 필수
+          const data = await axios.post(
+            'http://192.168.0.89:8000/api/apple/callback',
+            {identityToken: response.id_token},
+          );
+          if (data.data.token) {
+            await AsyncStorage.setItem('AccessToken', data.data.token);
+            setLoginState(true);
+          }
+        }
+      } catch (error) {
+        //@TODO: 예외처리 필요
+        if (error && error.message) {
+          switch (error.message) {
+            case appleAuthAndroid.Error.NOT_CONFIGURED:
+              console.log('appleAuthAndroid not configured yet.');
+              break;
+            case appleAuthAndroid.Error.SIGNIN_FAILED:
+              console.log('Apple signin failed.');
+              break;
+            case appleAuthAndroid.Error.SIGNIN_CANCELLED:
+              console.log('User cancelled Apple signin.');
+              break;
+            default:
+              break;
+          }
         }
       }
     }
-  }
-
-  if (appleAuth.isSupported) {
-    const appleAuthRequestResponse = await appleAuth.performRequest({
-      requestedOperation: appleAuth.Operation.LOGIN,
-      requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
-    });
-    console.log('appleAuthRequestResponse', appleAuthRequestResponse);
-    const credentialState = await appleAuth.getCredentialStateForUser(
-      appleAuthRequestResponse.user,
-    );
-
-    // use credentialState response to ensure the user is authenticated
-    if (credentialState === appleAuth.State.AUTHORIZED) {
-      console.log('asd');
-      // user is authenticated
+    if (appleAuth.isSupported) {
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+      });
+      const credentialState = await appleAuth.getCredentialStateForUser(
+        appleAuthRequestResponse.user,
+      );
+      if (credentialState === appleAuth.State.AUTHORIZED) {
+        //@TODO: 호출 URL 추후 변경 필수
+        const data = await axios.post(
+          'http://192.168.0.89:8000/api/apple/callback',
+          {identityToken: appleAuthRequestResponse.identityToken},
+        );
+        if (data.data.token) {
+          await AsyncStorage.setItem('AccessToken', data.data.token);
+          setLoginState(true);
+        }
+      }
     }
-  }
-};
-const handleGoogleLogin = async () => {
-  await GoogleSignin.hasPlayServices();
-  const user = await GoogleSignin.signIn();
-  console.log(user);
-};
-const Login = () => {
+  };
+  const handleGoogleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const sigiInResult = await GoogleSignin.signIn();
+      //@TODO: 호출 URL 추후 변경 필수
+      const data = await axios.post(
+        'http://192.168.0.89:8000/api/google/callback',
+        {userID: sigiInResult.user.id},
+      );
+      if (data.data.token) {
+        await AsyncStorage.setItem('AccessToken', data.data.token);
+        setLoginState(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setLoginState = useSetRecoilState(LoginState);
   const currentYear = new Date().getFullYear();
 
   return (

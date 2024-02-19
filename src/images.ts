@@ -11,3 +11,9 @@ export const todoIconActive = require('../assets/todo_icon_active.png');
 
 export const cdSampleImage = require('../assets/cd_sample.png');
 export const modalBackground = require('../assets/modalBackground.png');
+export const coffee = require('../assets/routine_cd/coffee.png');
+export const eat = require('../assets/routine_cd/eat.png');
+export const morning = require('../assets/routine_cd/morning.png');
+export const read = require('../assets/routine_cd/read.png');
+export const running = require('../assets/routine_cd/running.png');
+export const travel = require('../assets/routine_cd/travel.png');

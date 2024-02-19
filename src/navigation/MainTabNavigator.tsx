@@ -13,6 +13,7 @@ import {
   todoIconActive,
 } from '../images';
 import styled from 'styled-components/native';
+import Tutorial_4 from '../screen/LoginPages/TutorialPages/Tutorial_4';
 
 const Tab = createBottomTabNavigator();
 
@@ -57,7 +58,7 @@ const MainTabNavigator = () => {
       />
       <Tab.Screen
         name="Todo"
-        component={Todo}
+        component={Tutorial_4}
         options={{
           title: '일정',
           tabBarLabel: ({children, focused}) => {

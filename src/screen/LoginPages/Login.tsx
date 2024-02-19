@@ -150,8 +150,9 @@ const Login = () => {
       //@TODO: 호출 URL 추후 변경 필수
       const data = await axios.post(
         'http://192.168.0.89:8000/api/google/callback',
-        {userID: sigiInResult.user.id},
+        {userID: sigiInResult.user.email},
       );
+      //@TODO: 백엔드 서버 죽었을 때 예외가 없음
       if (data.data.token) {
         await AsyncStorage.setItem('AccessToken', data.data.token);
         setLoginState(true);

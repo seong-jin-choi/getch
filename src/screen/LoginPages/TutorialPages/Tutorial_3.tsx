@@ -37,7 +37,6 @@ const TextWrap = styled.View<Iheight>`
   margin-top: ${props => props.height * 0.04926}px;
   height: auto;
   width: 100%;
-  /* margin-top: 20px; */
 `;
 
 const Title = styled.Text`

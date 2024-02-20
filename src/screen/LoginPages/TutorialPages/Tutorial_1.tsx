@@ -13,6 +13,7 @@ import {
 import Carousel from 'react-native-snap-carousel';
 
 // 피그마 아트보드 4
+// TODO. 스와이퍼 캐러셀 부분의 안드로이드 동작 체크
 
 interface Iheight {
   height: number;
@@ -23,9 +24,7 @@ const IntroSection = styled.SafeAreaView`
   height: 100%;
   position: relative;
   flex-direction: column;
-  justify-content: space-between;
   background-color: #f7f7f7;
-  /* background: red; */
 `;
 
 const LogoWrap = styled.View`
@@ -33,7 +32,6 @@ const LogoWrap = styled.View`
   width: 60px;
   height: 19px;
   align-self: center;
-  /* background: pink; */
 `;
 
 const Logo = styled.Image`
@@ -45,7 +43,6 @@ const TextWrap = styled.View<Iheight>`
   margin-top: ${props => props.height * 0.04}px;
   width: 100%;
   height: auto;
-  /* background: yellow; */
 `;
 
 const Title = styled.Text`
@@ -65,18 +62,15 @@ const SubTitle = styled.Text`
 `;
 
 const CarouselWrap = styled.View<Iheight>`
-  margin-top: ${props => props.height * 0.2}px;
+  margin-top: ${props => props.height * 0.21899}px;
   width: 100%;
-  height: 182px;
-  /* background: blue; */
+  height: ${props => props.height * 0.24010554}px;
 `;
 
-const CDWrap = styled.View`
-  width: 182px;
-  height: 182px;
-`;
+const CDWrap = styled.View``;
 
 const Cd = styled.Image`
+  object-fit: contain;
   width: 100%;
   height: 100%;
 `;
@@ -85,10 +79,7 @@ const BtnWrap = styled.View<Iheight>`
   margin-top: ${props => props.height * 0.13}px;
   margin-left: 20px;
   margin-right: 20px;
-  margin-bottom: 50px;
   height: auto;
-
-  /* background: aquamarine; */
 `;
 
 const NextBtn = styled.TouchableOpacity`
@@ -149,7 +140,6 @@ export default ({navigation}) => {
       <CarouselWrap height={height}>
         <Carousel
           loop={true}
-          // loopClonesPerSide={3}
           autoplay={true}
           autoplayInterval={1500}
           data={cdList}

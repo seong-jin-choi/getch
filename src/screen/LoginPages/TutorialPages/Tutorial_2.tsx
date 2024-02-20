@@ -32,7 +32,6 @@ const TextWrap = styled.View<Iheight>`
   margin-top: ${props => props.height * 0.04926}px;
   height: auto;
   width: 100%;
-  /* margin-top: 20px; */
 `;
 
 const Title = styled.Text`
@@ -67,8 +66,6 @@ const BtnWrap = styled.View<Iheight>`
   margin-top: ${props => props.height * 0.024}px;
   margin-left: 20px;
   margin-right: 20px;
-  /* width: 100%; */
-  /* height: 46px; */
 `;
 
 const NextBtn = styled.TouchableOpacity<Iheight>`
@@ -76,7 +73,7 @@ const NextBtn = styled.TouchableOpacity<Iheight>`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: ${props => props.height * 0.05665}px;
+  height: 46px;
   border-radius: 8px;
   background-color: #000;
 `;

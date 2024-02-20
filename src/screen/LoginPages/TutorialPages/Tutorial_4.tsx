@@ -46,7 +46,8 @@ const CdArray: ICdItem[] = [
   {title: '집밥 만들어 먹기', duration: '1주일', image: cdSampleImage},
 ];
 
-export default () => {
+export default ({navigation}) => {
+  const navigateTodos = () => navigation.navigate('Tabs');
   return (
     <SafeAreaView style={{flex: 1}}>
       <Wrapper>
@@ -59,7 +60,7 @@ export default () => {
           data={CdArray}
           numColumns={2}
           keyExtractor={(item, index) => item.title.toString() + index}
-          renderItem={({item}) => <CdItem CD={item} />}
+          renderItem={({item}) => <CdItem CD={item} navigate={navigateTodos} />}
         />
       </Wrapper>
     </SafeAreaView>
@@ -166,7 +167,7 @@ const PretendardLight = styled.Text`
   font-family: ${fonts.Light};
 `;
 
-const CdItem = ({CD}: {CD: ICdItem}) => {
+const CdItem = ({CD, navigate}: {CD: ICdItem; navigate: () => void}) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <CdItemWrap onPress={() => setModalVisible(true)}>
@@ -174,7 +175,7 @@ const CdItem = ({CD}: {CD: ICdItem}) => {
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}>
+        onRequestClose={() => setModalVisible(true)}>
         <ModalContainer>
           <ModalBackground />
           <ContentContainer>
@@ -218,13 +219,20 @@ const CdItem = ({CD}: {CD: ICdItem}) => {
                   </PretendardLight>
                 </ScrollView>
                 <ModalButtonWrap>
-                  <ModalButton style={{backgroundColor: 'black'}}>
+                  <ModalButton
+                    onPress={() => {
+                      setModalVisible(false);
+                      navigate();
+                    }}
+                    style={{backgroundColor: 'black'}}>
                     <ModalButtonText style={{color: 'white'}}>
                       CD 청취하기
                     </ModalButtonText>
                   </ModalButton>
                   <ModalButton
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onPress={() => {
+                      setModalVisible(false);
+                    }}
                     style={{borderWidth: 1}}>
                     <ModalButtonText style={{color: 'black'}}>
                       닫기

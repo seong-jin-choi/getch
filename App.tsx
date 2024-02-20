@@ -16,6 +16,8 @@ function App(): React.JSX.Element {
         '174352192007-665nfec6016tegqro9atiedo9g5nck13.apps.googleusercontent.com',
     });
   }, []);
+  AsyncStorage.removeItem('AccessToken');
+  AsyncStorage.removeItem('isFirstVisit');
   return (
     <RecoilRoot>
       <NavigationContainer>

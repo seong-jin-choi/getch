@@ -167,7 +167,13 @@ const Login = () => {
       if (!data) return;
       if (data.data.token) {
         await AsyncStorage.setItem('AccessToken', data.data.token);
-        setLoginState(true);
+        const visited = await AsyncStorage.getItem('isFirstVisit');
+        if (!visited) {
+          await AsyncStorage.setItem('visited', 'true');
+          setLoginState({isLoggined: true, isFirstVisit: true});
+        } else {
+          setLoginState({isLoggined: true, isFirstVisit: false});
+        }
       }
     } catch (error) {
       console.log(error);

@@ -3,7 +3,7 @@ import Todo from '../screen/Todo';
 import Category from '../screen/Category';
 import MyInfoNavigator from './MyInfoNavigator';
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Text} from 'react-native';
 import {
   categoryIcon,
   categoryIconActive,
@@ -12,8 +12,6 @@ import {
   todoIcon,
   todoIconActive,
 } from '../images';
-import styled from 'styled-components/native';
-import Tutorial_4 from '../screen/LoginPages/TutorialPages/Tutorial_4';
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +56,7 @@ const MainTabNavigator = () => {
       />
       <Tab.Screen
         name="Todo"
-        component={Tutorial_4}
+        component={Todo}
         options={{
           title: '일정',
           tabBarLabel: ({children, focused}) => {

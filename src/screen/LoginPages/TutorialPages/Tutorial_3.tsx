@@ -128,7 +128,7 @@ export default ({navigation}) => {
       <Wrap height={height}>
         <BtnWrap height={height}>
           <NextBtn
-            onPress={() => navigation.navigate('Tutorial3')}
+            onPress={() => navigation.navigate('Tutorial4')}
             height={height}>
             <BtnText>계속</BtnText>
           </NextBtn>

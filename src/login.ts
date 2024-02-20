@@ -1,9 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {atom} from 'recoil';
 
-export const LoginState = atom<boolean>({
+interface ILoginState {
+  isLoggined: boolean;
+  isFirstVisit: boolean;
+}
+export const LoginState = atom<ILoginState>({
   key: 'LoginState',
-  default: false,
+  default: {isLoggined: false, isFirstVisit: false},
 });
 
 //@TODO: 호출 URL 추후 변경 필수

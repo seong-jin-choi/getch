@@ -2,15 +2,9 @@ import {
   Alert,
   FlatList,
   Image,
-  ImageBackground,
   Modal,
-  Pressable,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
 } from 'react-native';
 import styled from 'styled-components/native';
 import fonts from '../../../fonts';
@@ -180,10 +174,7 @@ const CdItem = ({CD}: {CD: ICdItem}) => {
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
+        onRequestClose={() => setModalVisible(!modalVisible)}>
         <ModalContainer>
           <ModalBackground />
           <ContentContainer>

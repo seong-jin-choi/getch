@@ -11,8 +11,8 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import fonts from '../../fonts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useSetRecoilState} from 'recoil';
-import {LoginState} from '../../login';
-import axios from 'axios';
+import {AuthKey, LoginState, appleLoginURL, googleLoginURL} from '../../login';
+import axios, {AxiosError} from 'axios';
 
 // 피그마 아트보드 3
 
@@ -93,10 +93,12 @@ const Login = () => {
 
         const response = await appleAuthAndroid.signIn();
         if (response) {
-          //@TODO: 호출 URL 추후 변경 필수
           const data = await axios.post(
-            'http://192.168.0.89:8000/api/apple/callback',
-            {identityToken: response.id_token},
+            appleLoginURL,
+            {
+              identityToken: response.id_token,
+            },
+            {headers: {Authorization: AuthKey}},
           );
           if (data.data.token) {
             await AsyncStorage.setItem('AccessToken', data.data.token);
@@ -131,10 +133,12 @@ const Login = () => {
         appleAuthRequestResponse.user,
       );
       if (credentialState === appleAuth.State.AUTHORIZED) {
-        //@TODO: 호출 URL 추후 변경 필수
         const data = await axios.post(
-          'http://192.168.0.89:8000/api/apple/callback',
-          {identityToken: appleAuthRequestResponse.identityToken},
+          appleLoginURL,
+          {
+            identityToken: appleAuthRequestResponse.identityToken,
+          },
+          {headers: {Authorization: AuthKey}},
         );
         if (data.data.token) {
           await AsyncStorage.setItem('AccessToken', data.data.token);
@@ -147,12 +151,20 @@ const Login = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const sigiInResult = await GoogleSignin.signIn();
-      //@TODO: 호출 URL 추후 변경 필수
-      const data = await axios.post(
-        'http://192.168.0.89:8000/api/google/callback',
-        {userID: sigiInResult.user.email},
-      );
-      //@TODO: 백엔드 서버 죽었을 때 예외가 없음
+      const data = await axios
+        .post(
+          googleLoginURL,
+          {
+            userID: sigiInResult.user.email,
+          },
+          {headers: {Authorization: AuthKey}},
+        )
+        .catch((error: AxiosError) => {
+          //@TODO: 백엔드 서버 죽었을 때 예외가 없음
+          console.log(error.toJSON());
+          return null;
+        });
+      if (!data) return;
       if (data.data.token) {
         await AsyncStorage.setItem('AccessToken', data.data.token);
         setLoginState(true);

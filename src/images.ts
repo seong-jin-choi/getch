@@ -17,3 +17,5 @@ export const morning = require('../assets/routine_cd/morning.png');
 export const read = require('../assets/routine_cd/read.png');
 export const running = require('../assets/routine_cd/running.png');
 export const travel = require('../assets/routine_cd/travel.png');
+export const guideAudio = require('../assets/guides/guide_audio.png');
+export const guidePhone = require('../assets/guides/guide_phone.png');

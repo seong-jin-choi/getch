@@ -23,6 +23,7 @@ const Header = styled.Text`
 const Wrapper = styled.View`
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 130px;
 `;
 
 // 피그마 아트보드 7

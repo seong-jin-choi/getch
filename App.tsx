@@ -16,8 +16,9 @@ function App(): React.JSX.Element {
         '174352192007-665nfec6016tegqro9atiedo9g5nck13.apps.googleusercontent.com',
     });
   }, []);
-  AsyncStorage.removeItem('AccessToken');
-  AsyncStorage.removeItem('isFirstVisit');
+  // @TODO: 로그인 시퀀스 테스트용
+  // AsyncStorage.removeItem('AccessToken');
+  // AsyncStorage.removeItem('isFirstVisit');
   return (
     <RecoilRoot>
       <NavigationContainer>

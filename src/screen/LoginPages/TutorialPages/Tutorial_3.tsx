@@ -4,6 +4,7 @@ import {tutorialPhone, logo} from '../../../images';
 import fonts from '../../../fonts';
 
 // 피그마 아트보드 6
+// TODO. 안드로이드에서 튜토리얼 1,2,3넘어갈떄 , 튜토리얼 3의 버튼위치가 1,2와 다름.  position absolute 부분을 수정해야함
 
 interface IImageWrap {
   width: number;
@@ -36,7 +37,6 @@ const TextWrap = styled.View<Iheight>`
   margin-top: ${props => props.height * 0.04926}px;
   height: auto;
   width: 100%;
-  /* margin-top: 20px; */
 `;
 
 const Title = styled.Text`
@@ -56,23 +56,18 @@ const SubTitle = styled.Text`
 `;
 
 const ImageWrap = styled.View<IImageWrap>`
-  /* margin-top: ${props => props.height * 0.098522}px; */
-  /* margin-left: ${props => props.width * 0.096}px; */
-  /* margin-top: 80px; */
-  /* margin-left: 36px; */
   width: 300px;
   margin: 80px auto 0;
 `;
 
 const TutorialPhone = styled.Image`
   object-fit: cover;
-  /* width: 100%; */
-  /* height: 100%; */
 `;
 
 const Wrap = styled.View<Iheight>`
+  margin-top: ${props => props.height * 0.024}px;
   position: absolute;
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   height: ${props => props.height * 0.1182266}px;
   bottom: 0;
@@ -80,7 +75,6 @@ const Wrap = styled.View<Iheight>`
 `;
 
 const BtnWrap = styled.View<Iheight>`
-  margin-top: ${props => props.height * 0.024}px;
   margin-left: 20px;
   margin-right: 20px;
 `;
@@ -89,7 +83,8 @@ const NextBtn = styled.TouchableOpacity<Iheight>`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: ${props => props.height * 0.05665}px;
+  height: 46px;
+  /* height: ${props => props.height * 0.05665}px; */
   border-radius: 8px;
   background-color: #000;
 `;

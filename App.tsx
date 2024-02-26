@@ -16,7 +16,7 @@ function App(): React.JSX.Element {
         '174352192007-665nfec6016tegqro9atiedo9g5nck13.apps.googleusercontent.com',
     });
   }, []);
-  // @TODO: 로그인 시퀀스 테스트용
+  // @TODO: 로그인 시퀀스 테스트용(추후 삭제예정)
   // AsyncStorage.removeItem('AccessToken');
   // AsyncStorage.removeItem('isFirstVisit');
   return (

@@ -8,6 +8,7 @@ export const myInfoIcon = require('../assets/myInfo_icon.png');
 export const myInfoIconActive = require('../assets/myInfo_icon_active.png');
 export const todoIcon = require('../assets/todo_icon.png');
 export const todoIconActive = require('../assets/todo_icon_active.png');
+export const chevronRightIcon = require('../assets/chevron_right_icon.png');
 
 export const cdSampleImage = require('../assets/cd_sample.png');
 export const modalBackground = require('../assets/modalBackground.png');

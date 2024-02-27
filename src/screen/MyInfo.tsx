@@ -38,6 +38,7 @@ const ContentContainer = styled.View`
 `;
 const SelectContainer = styled(ContentContainer)`
   align-items: flex-end;
+  gap: 10px;
 `;
 const AccountContainer = styled(ContentContainer)`
   height: 71px;
@@ -62,12 +63,9 @@ const TitleContainer = styled.View`
   flex-direction: row;
   gap: 10px;
 `;
-const Divider = styled.View`
-  margin-top: 6px;
-  margin-bottom: 6px;
-  border-bottom-width: 1px;
-  border-bottom-color: #e1e1e1;
-  width: 90%;
+export const Divider = styled.View`
+  border-width: 1px;
+  border-color: #e1e1e1;
 `;
 
 const NavTitle = styled.Text`
@@ -113,7 +111,7 @@ export default ({navigation: {navigate}}) => (
             <ChevronIcon source={chevronRightIcon} />
           </NavContainer>
         </TouchableOpacity>
-        <Divider />
+        <Divider style={{width: '90%'}} />
         <TouchableOpacity onPress={() => navigate('ServiceTerms')}>
           <NavContainer>
             <TitleContainer>
@@ -134,7 +132,7 @@ export default ({navigation: {navigate}}) => (
             <ChevronIcon source={chevronRightIcon} />
           </NavContainer>
         </TouchableOpacity>
-        <Divider />
+        <Divider style={{width: '90%'}} />
         <TouchableOpacity onPress={() => navigate('MagageAccount')}>
           <NavContainer>
             <TitleContainer>

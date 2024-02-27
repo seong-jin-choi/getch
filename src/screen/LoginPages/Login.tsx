@@ -161,7 +161,7 @@ const Login = () => {
         )
         .catch((error: AxiosError) => {
           //@TODO: 백엔드 서버 죽었을 때 예외가 없음
-          console.log(error.toJSON());
+          console.log('백엔드 서버 죽어있음');
           return null;
         });
       if (!data) return;

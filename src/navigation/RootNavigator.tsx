@@ -31,9 +31,6 @@ const RootNavigator = () => {
 
     getData();
   }, []);
-  useEffect(() => {
-    console.log(loginState);
-  }, [loginState]);
 
   if (isLoading) {
     return <SplashScreen />;

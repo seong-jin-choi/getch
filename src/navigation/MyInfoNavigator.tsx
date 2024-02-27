@@ -10,16 +10,26 @@ const StackNavigator = createNativeStackNavigator();
 
 const MyInfoNavigator = () => {
   return (
-    <StackNavigator.Navigator>
+    <StackNavigator.Navigator
+      screenOptions={{
+        headerBackTitleVisible: false,
+        headerTintColor: 'black',
+        headerTitleStyle: {fontSize: 18, fontWeight: '600'},
+      }}>
       <StackNavigator.Screen
         name="MyInfo"
         component={MyInfo}
-        options={{headerShown: false, title: '돌아가기'}}
+        options={{
+          headerShown: false,
+          title: 'MyInfo',
+        }}
       />
       <StackNavigator.Screen
         name="MyCD"
         component={MyCD}
-        options={{title: 'MY CD'}}
+        options={{
+          title: 'MY CD',
+        }}
       />
       <StackNavigator.Screen
         name="PrivateTerms"

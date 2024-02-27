@@ -5,6 +5,7 @@ import MyInfo from '../screen/MyInfo';
 import MyCD from '../screen/MyInfoPages/MyCD';
 import PrivateTerms from '../screen/MyInfoPages/PrivateTerms';
 import ServiceTerms from '../screen/MyInfoPages/ServiceTerms';
+import fonts from '../fonts';
 
 const StackNavigator = createNativeStackNavigator();
 
@@ -14,7 +15,12 @@ const MyInfoNavigator = () => {
       screenOptions={{
         headerBackTitleVisible: false,
         headerTintColor: 'black',
-        headerTitleStyle: {fontSize: 18, fontWeight: '600'},
+        headerTitleStyle: {
+          fontSize: 18,
+          fontWeight: '600',
+          fontFamily: fonts.SemiBold,
+        },
+        animation: 'slide_from_right',
       }}>
       <StackNavigator.Screen
         name="MyInfo"

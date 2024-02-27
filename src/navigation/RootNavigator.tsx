@@ -39,7 +39,7 @@ const RootNavigator = () => {
   return (
     <Nav.Navigator
       initialRouteName={loginState ? 'Tutorial1' : 'Intro1'} //최초로 보이는 페이지
-      screenOptions={{headerShown: false}}>
+      screenOptions={{headerShown: false, animation: 'slide_from_right'}}>
       {loginState.isLoggined ? (
         <>
           {loginState.isFirstVisit ? (
